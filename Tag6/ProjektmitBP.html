@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: black;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: none;
+        }
+
+        .custom-cursor {
+    position: fixed;
+    width: 80px; /* Größe des Sterns */
+    height: 80px;
+    background-color: transparent;
+    clip-path: polygon(
+        50% 0%, 61% 35%, 98% 35%, 
+        68% 57%, 79% 91%, 50% 70%, 
+        21% 91%, 32% 57%, 2% 35%, 39% 35%
+    ); /* Sternform */
+    background-color: #FF0080; /* Knallpink */
+    pointer-events: none; /* Verhindert, dass der Cursor Elemente blockiert */
+    transform: translate(-50%, -50%) rotate(0deg);
+    transition: transform 0.1s ease-out; /* Sanfte Übergänge */
+    z-index: 10000; /* Über alles legen */
+}
+
+        .text-style:hover {
+            color: #FF0080;
+}
+
+        .containerparent {
+            display: grid;
+            grid-template-columns: repeat(22, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            gap: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        /* Einheitliche Standard-Schriftklasse */
+        .text-style {
+            font-family: "Roboto", sans-serif;
+            font-weight: 700;
+            font-size: 6.7vw;
+            color: white;
+            display: flex;
+            align-items: center;
+            white-space: normal;
+            overflow: hidden;
+            word-wrap: break-word;
+            padding: 10px;
+            overflow: visible; 
+            
+        }
+
+        /* Links ausgerichteter Text */
+        .text-left-style {
+            justify-content: fleAx-start;
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        /* Vertikal gedrehter Text nach rechts (90°) */
+        .text-vertical-style {
+            transform: rotate(90deg);
+            transform-origin: center;
+            white-space: nowrap;
+        }
+
+        /* Vertikal gedrehter Text nach links (-90°) */
+        .text-vertical-style-left {
+            transform: rotate(-90deg);
+            transform-origin: center;
+            white-space: nowrap;
+        }
+
+        .child1 {
+            grid-column: 1/12;
+            grid-row: 1/2;
+            border-bottom: 2px solid white;
+        }
+
+        .child2 {
+            grid-column: 1/12;
+            grid-row: 2/3;
+            border-bottom: 2px solid white;
+            background-color: black;
+            z-index: 5;
+        }
+
+        .childworkin2 {
+    grid-column: 8/10;
+    grid-row: 3/7;
+    border-left: 2px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    position: relative;
+    z-index: 2; /* Niedrigste Ebene */
+}
+
+.childworkin {
+    grid-column: 9/11;
+    grid-row: 3/7;
+    border-left: 2px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    position: relative;
+    z-index: 3; /* Höhere Ebene, überdeckt Pink */
+}
+
+.child6 {
+    grid-column: 10/12;
+    grid-row: 3/7;
+    border-left: 2px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    position: relative;
+    z-index: 4; /* Höchste Ebene, überdeckt Blau */
+}
+        .childspace {
+            grid-column: 10/12;
+            grid-row: 2/3;
+            border-left: 2px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            3
+        }
+        .child7 {
+            grid-column: 12/23;
+            grid-row: 6/7;
+            border-top: 2px solid white;
+            border-left:2px solid white;
+            justify-content: flex-end;
+            padding-right: 20px;
+            background-color: black;
+            z-index: 5;
+        }
+
+        .child8 {
+            grid-column: 12/14;
+            grid-row: 1/6;
+            border-left: 2px solid white;
+            border-right: 2px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background-color: black;
+            z-index: 3;
+        }
+
+        .child8progress {
+            grid-column: 14/16;
+            grid-row: 1/6;
+            border-left: 2px solid white;
+            border-right: 2px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background-color: black;
+            z-index: 1;
+        }
+
+        .child8progress2 {
+            grid-column: 13/15;
+            grid-row: 1/6;
+            border-left: 2px solid white;
+            border-right: 2px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background-color: black;
+            z-index: 2;
+        }
+        .childspace2 {
+            grid-column: 12/14;
+            grid-row: 6/7;
+            border-left: 2px solid white;
+            border-right: 2px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+
+        }
+
+            .animated {
+            animation: pulse 2s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: translateX(-16px); }
+            100% { transform: translateX(5px); }
+        }
+
+        .animated2 {
+            animation: pulse2 5s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulse2 {
+            0% { transform: translateX(-5px);
+             }
+            100% { transform: translateX(28px); }
+        }
+
+
+
+
+
+        .animatedleft {
+            animation: pulseleft 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseleft {
+            0% { transform: translateX(5px); }
+            100% { transform: translateX(-5px); }
+        }
+
+        .animatedleft2 {
+            animation: pulseleft2 4s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseleft2 {
+            0% { transform: translateX(5px); }
+            100% { transform: translateX(-25px); }
+        }
+
+        
+         @media (max-width: 768px) {
+            .containerparent {
+            display: grid;
+            grid-template-columns: repeat(22, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            gap: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        /* Einheitliche Standard-Schriftklasse */
+        .text-style {
+            font-family: "Roboto", sans-serif;
+            font-weight: 700;
+            font-size: 9.5vw;
+            color: white;
+            display: flex;
+            align-items: center;
+            white-space: normal;
+            overflow: hidden;
+            word-wrap: break-word;
+            padding: 3px;
+            overflow: visible; 
+        }
+
+        /* Links ausgerichteter Text */
+        .text-left-style {
+            justify-content: fleAx-start;
+            text-align: left;
+            padding-left: 20px;
+        
+        }
+
+        /* Vertikal gedrehter Text nach rechts (90°) */
+        .text-vertical-style {
+            transform: rotate(90deg);
+            transform-origin: center;
+            white-space: nowrap;
+
+        }
+
+        /* Vertikal gedrehter Text nach links (-90°) */
+        .text-vertical-style-left {
+            transform: rotate(-90deg);
+            transform-origin: center;
+            white-space: nowrap;
+        }
+
+        .child1 {
+            grid-column: 1/23;
+            grid-row: 1/2;
+            border-bottom: 2px solid white;
+            background-color: black;
+            z-index: 10;
+            text-align: right;
+        }
+
+        .child2 {
+            grid-column: 1/14;
+            grid-row: 6/7;
+            border-right: 2px solid white ;
+            border-bottom: 0px solid white;
+            border-top: 2px solid white;
+            background-color: black;
+            z-index: 5;
+        }
+
+        .childworkin2 {
+    grid-column: 5/7;
+    grid-row: 2/5;
+    border-left: 2px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    position: relative;
+    z-index: 2; /* Niedrigste Ebene */
+}
+
+.childworkin {
+    grid-column: 6/8;
+    grid-row: 2/5;
+    border-left: 2px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    position: relative;
+    z-index: 3; /* Höhere Ebene, überdeckt Pink */
+}
+
+.child6 {
+    grid-column: 8/12;
+    grid-row: 2/5;
+    border-left: 2px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    position: relative;
+    z-index: 4; /* Höchste Ebene, überdeckt Blau */
+}
+        .childspace {
+            grid-column: 10/12;
+            grid-row: 2/3;
+            border-left: 2px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            3
+        }
+        .child7 {
+            grid-column: 12/23;
+            grid-row: 2/3;
+            border-top: 0px solid white;
+            border-bottom: 2px solid white;
+            border-left:2px solid white;
+            justify-content: flex-start;
+            padding-left: 20px;
+            background-color: black;
+            z-index: 5;
+        }
+
+        .child8 {
+            grid-column: 12/14;
+            grid-row: 3/6;
+            border-left: 2px solid white;
+            border-right: 2px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background-color: black;
+            z-index: 3;
+        }
+
+        .child8progress {
+            grid-column: 14/16;
+            grid-row: 3/6;
+            border-left: 2px solid white;
+            border-right: 2px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background-color: black;
+            z-index: 1;
+        }
+
+        .child8progress2 {
+            grid-column: 13/15;
+            grid-row: 3/6;
+            border-left: 2px solid white;
+            border-right: 2px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background-color: black;
+            z-index: 2;
+        }
+        .childspace2 {
+            grid-column: 12/14;
+            grid-row: 6/7;
+            border-left: 2px solid white;
+            border-right: 2px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+
+    }
+
+    .emptyunten {
+            grid-column: 14/23;
+            grid-row: 6/7;
+            border-top: 2px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+
+    }
+
+    .emptylinks {
+            grid-column: 1/12;
+            grid-row: 5/6;
+            border-top: 2px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            z-index: 11;
+            
+
+    }
+
+
+    )
+
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        // Erstelle den Cursor
+        const cursor = document.createElement("div");
+        cursor.classList.add("custom-cursor");
+        document.body.appendChild(cursor);
+
+        let rotation = 0; // Startwinkel für die Rotation
+
+        // Cursor mit der Maus bewegen + Rotation
+        document.addEventListener("mousemove", function (e) {
+            rotation += 1; // Langsame Drehung (1 Grad pro Bewegung)
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
+            cursor.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+        });
+
+        // Klick-Animation
+        document.addEventListener("mousedown", function () {
+            cursor.classList.add("click");
+        });
+
+        document.addEventListener("mouseup", function () {
+            cursor.classList.remove("click");
+        });
+    });
+
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            document.getElementById("clock").textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateTime, 1000);
+        window.onload = updateTime;
+    </script>
+</head>
+
+<body>
+    <div class="containerparent">
+        <div class="child1 text-style text-left-style">MILENA MÜNTENER</div>
+        <div class="child2 text-style text-left-style">PORTFOLIO</div>
+
+        <div class="childworkin2 animatedleft2">
+            <div class="text-style text-vertical-style-left">WORK IN</div>
+        </div>
+
+        <div class="childworkin animatedleft">
+            <div class="text-style text-vertical-style-left">WORK IN</div>
+        </div>
+
+        <div class="child6">
+            <div class="text-style text-vertical-style-left">WORK IN</div>
+        </div>
+
+
+        <div class="childspace"> </div>
+        <div class="child7 text-style" 
+        <p id="clock"></p>
+        </div>
+
+       
+
+        <div class="child8progress2 animated">
+            <div class="text-style text-vertical-style">PROGRESS</div>
+        </div>
+
+        <div class="child8progress animated2">
+            <div class="text-style text-vertical-style">PROGRESS</div>
+        </div>
+
+        <div class="child8">
+            <div class="text-style text-vertical-style">PROGRESS</div>
+        </div>
+
+        <div class="childspace2"></div>
+        <div class="emptyunten"></div>
+        <div class="emptylinks"></div>
+    </div>
+</body>
+

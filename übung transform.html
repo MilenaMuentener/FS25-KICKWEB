@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .group {
+            display: grid;
+            grid-template-columns: repeat(3, 5px); /* 3 Spalten für die "S"-Elemente */
+            align-items: center; /* Zentriert vertikal */
+            justify-items: center; /* Zentriert horizontal */
+        }
+
+        .child {
+            font-size: 2rem; /* Vergrößert die "S"-Buchstaben */
+            mix-blend-mode: multiply;
+        }
+    </style>
+</head>
+<body>
+    <div class="group">
+        <div class="child">S</div>
+        <div class="child">S</div>
+        <div class="child">S</div>
+    </div>
+</body>
+</html>
